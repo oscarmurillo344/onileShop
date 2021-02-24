@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { producto } from '../clases/producto';
 import { LocalstorageService } from '../service/localstorage.service';
 
@@ -13,7 +15,8 @@ export class CarritoCompraComponent implements OnInit {
   valor:number=0
   numeroFactura:number=1
   DataCarrito:Array<producto>=new Array()
-  constructor( private __serviceLocal:LocalstorageService) { }
+  constructor( private __serviceLocal:LocalstorageService, private mensaje:ToastrService,
+    private route:Router) { }
 
   ngOnInit(): void {
   this.DataCarrito=this.__serviceLocal.GetStorage("DataCarrito") as producto[]
@@ -45,6 +48,12 @@ export class CarritoCompraComponent implements OnInit {
     this.listar()
   }
   Facturar(){
-
+    if(this.__serviceLocal.GetStorage("token")){
+      this.mensaje.success("ahora siguiente paso","Información")
+      this.route.navigate(["/"])
+    }else{
+      this.mensaje.info("iniciar sesion obligatorio","Información")
+     // this.route.navigate(["/login"])
+    }
   }
 }
