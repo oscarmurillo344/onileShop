@@ -25,6 +25,7 @@ export class CarritoCompraComponent implements OnInit {
       let precio:number = Number(data.precio)
       this.total+=data.cantidad
       this.valor=this.valor+precio
+      this.valor*=this.total
     })
   }
   Eliminar(i,index){
@@ -34,12 +35,12 @@ export class CarritoCompraComponent implements OnInit {
   }
 
   restar(i){
-    this.DataCarrito.forEach(data=> data.id== i ? data.cantidad--:null)
+    this.DataCarrito.forEach(data=> data.id== i && data.cantidad>1 ? data.cantidad--:null)
     this.__serviceLocal.SetStorage("DataCarrito",this.DataCarrito)
     this.listar()
   }
   sumar(i){
-    this.DataCarrito.forEach(data=> data.id== i ? data.cantidad++:null)
+    this.DataCarrito.forEach(data=> data.id== i && data.cantidad>0? data.cantidad++:data.cantidad)
     this.__serviceLocal.SetStorage("DataCarrito",this.DataCarrito)
     this.listar()
   }
