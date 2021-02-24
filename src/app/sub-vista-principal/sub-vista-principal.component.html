@@ -1,0 +1,21 @@
+<mat-card *ngFor="let producto of Producto" style="margin-top: 70px;">
+    <mat-card-header>
+      <mat-card-title>{{producto.descripcion}} </mat-card-title>
+    </mat-card-header>
+    <mat-card-subtitle>{{producto.precio | currency}}</mat-card-subtitle>
+    <img mat-card-image class="imagen" [src]="'../../assets//imagen/'+producto.imagen" alt="Foto no disponible">
+    <mat-card-content>
+        <p>
+            {{producto.detalle}}
+        </p>
+        <p>
+            disponible: {{ producto.estado ? ' Si ':' No' }}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="AgregarCarrito(producto)"  [routerLink]="['/inicio']">
+        <mat-icon >add_shopping_cart</mat-icon> Agregar al carrito
+     </button>  
+    </mat-card-actions>
+  </mat-card>
+  
